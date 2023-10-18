@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+const int V = 8;
+
+void addEdge(vector<int> adj[], int source, int destination) {
+    adj[source].push_back(destination);
+    adj[destination].push_back(source);
+}
+
+void BFS(vector<int> adj[], int initial_node) {
+    queue<int> q;
+    vector<int> visited(V, false);
+    
+    q.push(initial_node);
+    visited[initial_node] = true;
+    
+    while(!q.empty()) {
+        int front_node = q.front();
+        q.pop();
+        cout<<"Processed node is :- "<<front_node<<endl;
+        for(int neighbour: adj[front_node]) {
+            if(!visited[neighbour]) {
+                q.push(neighbour);
+                visited[neighbour] = true;
+            }
+        }
+    }
+}
+
+int main() {
+    
+    vector<int> adj[V];
+    
+    addEdge(adj, 0, 1);
+    addEdge(adj, 0, 2);
+    addEdge(adj, 0, 3);
+    addEdge(adj, 2, 4);
+    addEdge(adj, 2, 5);
+    addEdge(adj, 1, 6);
+    addEdge(adj, 7, 6);
+    
+    int initial_node = 6;
+    
+    BFS(adj, initial_node);
+    
+    return 0;
+}
